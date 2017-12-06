@@ -3,18 +3,18 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
-author: John Doe
-language:
-timezone:
-
+title: 博伊斯 
+subtitle: 森林中的独立者
+description: AI
+author: Boyce Xu
+language: zh-Hans
+timezone: Asia/Shanghai
+since: 2017
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://iboyce.com
 root: /
-permalink: :year/:month/:day/:title/
+permalink: /blog/:title.html  #:year/:month/:day/:title/
 permalink_defaults:
 
 # Directory
@@ -34,7 +34,7 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -46,6 +46,9 @@ highlight:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  编程: programming
+  生活: life
+  其他: other  
 tag_map:
 
 # Date / Time format
