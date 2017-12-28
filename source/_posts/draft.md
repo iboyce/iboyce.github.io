@@ -1,6 +1,6 @@
 ---
 title: draft
-date: 2017-12-27 15:10:09
+date: 0000-12-27 15:10:09
 tags:
   - draft
 mathjax: true
