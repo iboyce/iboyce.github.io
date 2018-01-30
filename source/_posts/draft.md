@@ -1,10 +1,13 @@
 ---
 title: draft
-date: 0000-12-27 15:10:09
+date: 0000-01-30 21:35:09
 tags:
   - draft
 mathjax: true
 ---
+
+# LSTM
+此篇文章对[LSTM单元](http://blog.csdn.net/songhk0209/article/details/71134698)讲的比较 细
 
 # 增强学习
 * 四个要素 $(A,S,R,P)$
