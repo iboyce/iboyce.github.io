@@ -7,7 +7,16 @@ mathjax: true
 ---
 
 # LSTM
-此篇文章对[LSTM单元](http://blog.csdn.net/songhk0209/article/details/71134698)讲的比较 细
+* 此篇文章对[LSTM单元](http://blog.csdn.net/songhk0209/article/details/71134698)讲的比较 细，主要是两张图，几个公式
+![LSTM_originpic](http://p15i7i801.bkt.clouddn.com/34b4636de5dbb1676a6d547beb412cbc.png)
+![LSTM_changpic](http://p15i7i801.bkt.clouddn.com/f579fb8e69d5b8920f84bf8936fd629c.png)
+* 常见变种一：Gers & Schmidhuber在2000年提出。这种方法增加了“peephole connections”，即每个门都可以“窥探”到单元状态。这里，遗忘门和输入门是与上一单元状态建立连接，而输出门是与当前单元状态建立连接。
+![LSTM_peephole](http://p15i7i801.bkt.clouddn.com/2488e6f9c12e514cea6088e878046b90.png)
+* 常见变种二:将新信息加入的多少与旧状态保留的多少设为互补的两个值（和为1），即：只有当需要加入新信息时，我们才会去遗忘；只有当需要遗忘时，我们才会加入新信息。
+![LSTM_MINUSONE](http://p15i7i801.bkt.clouddn.com/78d2296bdfe71e20e12cb13961a2c80a.png)
+* 常见变种三：Gated Recurrent Unit（GRU），最早由Cho, et al.在2014年提出。这种方法将遗忘门和输入门连入了一个“更新门”（update gate），同时也合并了隐藏状态ht和单元状态Ct，最终的结果比标准LSTM简单一些。
+* LSTM变种很多，结果显示这些变种表现差不多，具体参见Greff, et al. (2015)及Jozefowicz, et al. (2015)
+* [来自MIT的Edwin Chen的一篇很有意思的解释](https://zhuanlan.zhihu.com/p/27345523)
 
 # 增强学习
 * 四个要素 $(A,S,R,P)$
