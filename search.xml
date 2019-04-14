@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[序列模型]]></title>
+    <url>%2F%2Fblog%2F%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B.html</url>
+    <content type="text"><![CDATA[序列模型第一周 循环序列模型为什么要用序列模型 在序列数据上表现良好 在以上案例中可以发现X,Y适用不同的情况，两者可以是序列，也可以其中一个是序列]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>公开课</tag>
+        <tag>深度学习</tag>
+        <tag>Andrew NG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ElasticSearch常见操作]]></title>
+    <url>%2F%2Fblog%2FElasticSearch%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C.html</url>
+    <content type="text"><![CDATA[几个基本概念 索引——库 类型——表 文档——表记录 字段——字段 带来的好处 海量数据检索秒级返回，具备结构化、全文、多字段、相关度及模糊匹配搜索能力 海量数据量准实时分析，包括按时间统计、过滤、排序、求和、百分位计算等各类聚合操作、关联关系的建模 NoSql的弹性，无须提前设计表结构 如何交互 JAVA/PYTHON.. API Restful 接口 CURL 可以使用任何语言 Sense控制台 参见Sense UI指南 如何快速入门 开源开源！—— 官网 《Elasticsearch 权威指南》中文版，参考电子版 简单操作示例增(index)1234567891011121314151617##PUT-GET谓词PUT stockfactor_2018.01.30/airr_mapping&#123; "stockname": "招商银行", "open": "32.90", "close": "32.57"&#125;GET stockfactor_2018.01.30/airr_mapping/600036##POST谓词POST stockfactor_2018.01.30/airr_mapping&#123; "stockname": "招商银行", "open": "32.90", "close": "32.57"&#125;GET stockfactor_2018.01.30/airr_mapping/_search 正常的话返回确认响应体，以上代表两种方式，一种是“你严格按照我说的去办”PUT-GET方法，一种是“请帮我处理这条请求”的POST方法，可以注意到，POST方法无须指定_id,ElasticSearch会帮助你生成一条。 删改查12345##取回部分字段GET stockfactor_2018.01.30/airr_mapping/600036?_source=stockname,openGET stockfactor_2018.01.30/airr_mapping/_search##使用通配符来搜索多索引、多类型GET */airr_mapping/_search?_source=astr_intro,double_pb,double_pe_ttm?size=5&amp;from=10]]></content>
+      <categories>
+        <category>深耕码农</category>
+      </categories>
+      <tags>
+        <tag>ElasticSearch</tag>
+        <tag>数据处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[卷积神经网络]]></title>
+    <url>%2F%2Fblog%2F%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html</url>
+    <content type="text"><![CDATA[卷积神经网络第一周 卷积神经网络 图像分类 目标检测 衍生的新的艺术形式：风格迁移 以上处理参数巨大，难以有足够的数据防止过拟合，所以需要引入卷积 边缘检测 使用卷积进行边缘检测的示例 卷积核或者说过滤器的选择很多文献讨论过，除了常见的过滤器，如下图的边缘检测，过滤器也可以做为参数学习出来 卷积神经网络以下$n$为图像大小，$f$为filter大小，$p$为padding大小 valid: $n-f+1$为过滤后的大小, 这样输出图像会越来越小,而且会丢掉边缘位置，因此引入padding使用输出图像大小 same: $n+2p-f+1=n$, $p=(f-1)/2$，因此$f$为奇数时，便可以选择相应大小的padding填充尺寸，所以在计算机视觉中很少看到偶数尺寸的过滤器，除非使用不自然的不对称的填充，而且用奇数过滤器有个中心便于指出它的位置.因此，建议使用奇数过滤器。 若加入步伐stride,则输出尺寸为 多个过滤器，一个过滤器通常一个二维输出（即使有多个通道，但过滤规则就一个，比如通常用红的横向边缘检测），但可以用多个过滤器去卷之，这样同样能得到一个输出立方体。注意过滤器的长宽可以不一致。 单层卷积，由超参过滤器大小f，步伐s,Padding p决定下层的大小和过滤数的个数filters决定下一层的深度，即通道数，最后一层所有参数作为输入经激活函数得出结果。 池化，一般有最大池化和平均池化，前者后普遍使用，经常使用超参f=2,s=2，输出大小 正好减半，也有f=3,s=2或f=3,s=1。至少为什么用池化，总之在实验室效果很好，直观上在某个区域只要获取特征是否存在，存在取最大值。同时池化基本不用padding，后面会讲。 参考LeNet5的一个完整的CNN示例，关注以下几点 在这里把CONV-POOL作为一层，POOL层无参数，但有的文献算为两层 超参的选择最好是参考论文，比如S=F=2，大小正好减半 这里的全连接层每一层400，第二层120，百度原因全连接在于对细化特征的重新分类，参考知乎上的说法， 这里的全连接层每一层400，第二层120，百度原因全连接在于对细化特征的重新分类，参考知乎上的说法，近期一些性能优异的网络模型如ResNet和GoogLeNet等均用全局平均池化（global average pooling，GAP，即卷积核为1*1）取代FC来融合学到的深度特征，最后仍用softmax等损失函数作为网络目标函数来指导学习过程。需要指出的是，用GAP替代FC的网络通常有较好的预测性能，它减少了参数和过拟合。 参数表下图，有二特点，一输出维度越来越小；二参数，输入没有参数，第一层卷积，卷积核参数558+8（BIAS）=208个参数，池化层无参数，第 为什么用卷积：参数共享+稀疏连接，前者是建立在对输入不同区域其特征检测方法仍然适用，正如很多人知道的，CNN擅于抓取具有平移不变性的特征 在建立完成CNN后，定义好损失函数，我们就可以用梯度下降或RMSPRO等等方法优化神经网络的参数了 第二周 深度卷积神经网络残差网络 He at al., 2015, deep residual networks for image recongnition 方法定义,输入直接跳跃到下N层 带来的好处，其使得层数与训练误差成反比 产生效果的原因 实例研究LeNet-5 LeCun et al., 1988. Gradient-based learning applied to document recognition 由于两个全连接，参数在6万左右 数据大小逐渐减少，通道数逐渐增多 过程为：输入——卷积——池化——卷积——池化——全连接——全连接——softmax 激活函数用的是sigmoid\tanh 如下图： AlexNet Krizhevsky et al., 2012. ImageNet classification with deep convolutional neural network 结构和LeNet很像，只不过参数变成了6千万 使用了Relu 使用了多个GPU，并且特别研究了如何将计算量分布到多个GPU上面 VGG-16 Simonyan&amp;Zisserman 2015. Very deep convolutional networks for large-scale image recongnition 使用padding，并且s=1,过滤器64，128，256，512，参数138M个，16代表16层 ResNet,152层Inception]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>公开课</tag>
+        <tag>深度学习</tag>
+        <tag>Andrew NG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[结构化机器学习项目]]></title>
+    <url>%2F%2Fblog%2F%E7%BB%93%E6%9E%84%E5%8C%96%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE.html</url>
+    <content type="text"><![CDATA[机器学习策略常见方法及局限搭建深度学习模型后，模型达到了一定的准确率，若要再度提升算法效率，或许你会这里的问题在于，如此尝试诸多方法，或许半年就过去了，并且不见得会多有效。因此我们需要策略来加速这一过程，这正是此门课的独特之处。 正交化使用早期的电视屏幕调整作比喻，分为上下钮、左右钮、梯形钮，此种情况更容易控制屏幕。这样在训练集、开发集、测试集达到好的效果之后，再将模型在真实世界使用。 使用单个评估指标 如查准及查全，使用F1 score代替，F1分数值是查准及查全的调和平均值——harmanic mean,当然它近似平均值 又如在真实的不同场景中，比如美国、中国、印度的图片识别猫的准确率不一致，可以直接求它们的平均值 以上针对算法的迭代优化选择而言，可以提高效率 优化指标及满足指标即最优的，优化项目及满足项目，有多个指标时，可以先限定某些指标而专注于优化其中一个指标。举例而言，比如流行的智能音箱，优化唤醒率，而限制假阳率为24小时内最多1次，以此标准迭代算法。 训练、开发、测试集 开发集，叫称为交叉验证集，开发集的分布应于测试集一致 在早期机器学习阶段7：3，6：2：2是常见的划分方法，而在现代深度学习算法习惯使用大量的数据，故可用更小的比例使用到开发集和测试集。谨记住测试集的作用，它是为了评估投产系统的性能，它能高置信度评估的效果即可 ，所以它可能只要1万或十万即可，这远远比所有数据20%的比例少 在反色情猫分类器的例子中，将机器学习的过程分为独立两步，每一步找目标，即确定单一评估指标，第二步对准和射击目标 机器的表现和人的表现 机器学习的准确度基本符合以下曲线,在追上人类以前发展很快，超越人类后发展很慢，它的上限即贝叶斯误差，也叫贝叶斯最优误差。 低于人类的时候发展快的原因可以从三个角度分析，一为可从人类视角分析，二为可获取人工标签，三可以更好的分析偏差和方差 可避免的偏差与方差 加入概念：泛化误差：在机器学习中泛化误差是用来衡量一个学习机器推广未知数据的能力，一图胜千言 举猫分类器而言，可以使用人类的偏差率来接近贝叶斯误差，因为人类在这方面很擅长。若偏差已没有增进空间，可以在考虑减少方差，方差可以通过正则或加数据来减少。 请注意人类水平的误差取决于具体目的，比如医学图像分类，不同的人的误差差率是不同的，估计贝叶斯误差可以使用最专业的团队的误差率 理解人类的表现 人类擅长处理自然感知任务，如图像、语音及NLP识别，在这些方面超越人类比较困难。在近几年的发展中，特定的几个领域内，如医学图像（皮肤癌、BCG判断）等已经取得了比人类更好的结果。 而在以下方面，机器学习已经远远超越了人类，它们的共同点是有大量的历史数据 广告点击 推荐 预测用时——快递及运输 还贷 误差分析在猫分类的例子中，假若你的错误率是10%，你的队员可能注意到有不少猫被识别成了猫，他可能建议你针对狗的优化算法，试想你可以收集更多狗的照片或设计一些只处理狗的算法，这样单独起一个项目会花费上月的时间，在这里建议一个简单的法子 在开发集中取出100个被错误分类的例子 取出是狗的例子,找出它的特点，比如模糊的图像、滤镜的图像，这样你就更能理解你的分类器，具体看情况去处理它了。 对于错误标记的数据是是否需要修正，依情况而定，同样用错误表来分析，若主要问题在其它因素上，暂暂时不用管，反之则分析。如图。 不管什么模型，也许很多研究人员、工程师都认为喂数据即可，其它人工分析是很有必要的，至少NG经常这么干，手工和这些错误做斗争可以快速的了解到工作的重点，这是很值得做的。强烈建议 快速的搭建系统并迅速迭代 寻找好特定领域的方向，划分训练开发集并设定单一评估指标，迅速搭建初始系统并使用偏差/方差分析或误差分析理论去优化下一步。 实际情况训练和测试分布往往不一致，两者数据都打散然后划分是不可取的，目标的准心就有偏差了。经常的做法是，将测试数据加入训练集，而开发集和测试集只使用目标真实数据。 在不匹配数据划分的情况下的误差分析，我们往往加入训练开发混合集去定位误差是否是数据匹配问题导致的。对于下图最右边deverror和testerror比trainerror还小的情况，可以通过第二张片子来进一步分析，图上是车镜语音场景的一个例子。 对于确定是数据不匹配的问题导致的误差，没有系统的解决方案，可以从以下两个角度尝试： 手动分析误差并理解训练和开发测试集的分布差异 使得测试集的数据分布向测试集靠近，可能通过增加数据或人造数据的方式 人造数据要注意的是，防止增加一小部分数据而造成模型对这一部分数据过拟合，用汽车识别的例子，若只取游戏中的车的合成图片，即便有海量的张数，但汽车的各类只有20种，这样就不行。 迁移学习 迁移学习的过程，如下图所示，把输出层换成自己的层和输出层，再用自有数据训练。从原理上来说即利用其它模型已经学习到的特征，如轮廓、边、角等等基础特征 从原理上理解，什么场景下适合迁移学习呢，对于那些比较难收集数据的场景，如射线科，如果有基础特征类似的基础场景已经较好的训练了便可以尝试迁移 多任务学习 原理，注意和softmax的区别，它的目标有多个 什么情况下多任务学习 端到端的深度学习及适用场景 它省去了传统机器学习的各类环节，在以往也许有的研究人员终其一生都在设计这些环节 在人脸识别中我们先目标检测再做识别，如果要端对端的话，这需要大量的数据。传统机器翻译需要先做文本分析，再提取特征等等，端对端的学习在这种场景下非常适应，因为它有大量的数据。 因此关键的问题是有没有]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>公开课</tag>
+        <tag>深度学习</tag>
+        <tag>Andrew NG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Practical introduction to data structures and algorithm analysis]]></title>
+    <url>%2F%2Fblog%2FPractical-introduction-to-data-structures-and-algorithm-analysis.html</url>
+    <content type="text"><![CDATA[概率论及一些基础思考代价与效益在有效的资源下将问题解决，称该算法是有效的。一个好的数据结构（解决方案）设计首先要考虑到业务场景，在操作上（增删改查），它有什么需求。比如查询上要求并发高、但在插入速度上并无太高的要求，或者反之。 计算复杂度 通常我们考虑算法的在一定数据规模下的平均复杂度，但平均复杂度分析并不是一定可靠的，这建立在输入数据概率分布已知的情况下考虑的，通常这种假设每个元素出现的概率均等。但是不正确的假设也可能带来灾难的性的后果，特别是在搜索类算法上，如散列和搜索树，具体事例可参考9.4、5.4节。有时间考虑特殊的数据分布，也会带来好处，如9.2节（自组织线性表） 在实时系统中不考虑平均情况，而考虑最差的情况。 复杂度分析，通常采用渐近分析的方法，使用化简的方法计算上界，下界和平均情况。 最完美算法联机算法——举例而言，最大子序列求和的问题 运行时间中的对数 如二叉树，contains操作，较明显，在常数据O(1)时间问题的大小缩减为其一部分（通过是一半或小于一半），则该算法是O(logN) 最大公因(约）数，即使用欧几里德/辗转相除法计算gcd(M,N)。由定理，若M&gt;N，则有M mod N &lt; M/2，可得该算法迭代次数至多是O(logN) 幂次运算，使用递归分解，将乘法降到O(logN) 基本数据结构表、栈、队列树二叉树可以使用栈来实现表达式树，也可用递归，这样会方便些。基本操作包括增(insert)、删(remove,两种可能性)、查(contains, findmin,findmax)，平均计算复杂度： 得O(nlogN)，但这无法控制上界，为控制任意次连续M次操作在最坏的情况下花费时间为O(MlogN)，引入AVL平衡树，当然它无法保证单次的操作的时间界。最后根据二八法则，将引入伸展树 AVL平衡树 使用单旋和双旋调整高度，结构上每个节点信息加入了高度。核心插入代码：1234567891011121314151617181920212223242526void insert( const Comparable &amp; x, AvlNode * &amp; t )&#123; if( t == NULL ) t = new AvlNode( x, NULL, NULL ); else if( x &lt; t-&gt;element ) &#123; insert( x, t-&gt;left ); if( height( t-&gt;left ) - height( t-&gt;right ) == 2 ) if( x &lt; t-&gt;left-&gt;element ) rotateWithLeftChild( t ); else doubleWithLeftChild( t ); &#125; else if( t-&gt;element &lt; x ) &#123; insert( x, t-&gt;right ); if( height( t-&gt;right ) - height( t-&gt;left ) == 2 ) if( t-&gt;right-&gt;element &lt; x ) rotateWithRightChild( t ); else doubleWithRightChild( t ); &#125; else ; // Duplicate; do nothing t-&gt;height = max( height( t-&gt;left ), height( t-&gt;right ) ) + 1;&#125; 伸展树之形伸展与一字伸展，目标是沿访问路径旋转 树的遍历B树——数据库的索引树，用于解决大量数据磁盘检索的问题注意B树的定义，5个特性，M\L参数的确定。如一个区块8K，每个键32B，在一颗M阶的B树中有M-1个键，则可算出M。对于叶子节点若每个记录是256字节，区块是8K，则可算出L=32。再回来看定义： 数据在叶子节点，并在相同深度上，且数据项介于L/2到L之间； 非叶节点，存储M-1个键，指示查找方向，其儿子数在M/2到M之间;注意B树插入时的分裂操作和删除的认领操作。 STL中set和map的树形实现散列 散列函数:利用horner法则，计算多项式函数$h_k=k_0+37k_1+37k_2=(37+37k_2)k_1+k_0$。通常建议桶大小为素数 冲突解决方法：分离链接、线性/平方探测、双散列。分离链接法因子可以到1，性能下降不明显，探测方法最好不超过0.5，双散列宜用质数。 再散列：一般使用途中策略，到达装载因子再散列 hashmap, hashset 散列比起二叉树而言速度虽有所提升但缺乏排序，通常用在比如编译器的符号表，拼写检查等等 优先队列（堆）排序与检索高级话题]]></content>
+      <categories>
+        <category>深耕码农</category>
+      </categories>
+      <tags>
+        <tag>经典著作</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[改善深层神经网络：超参数调试、正则化以及优化]]></title>
+    <url>%2F%2Fblog%2F%E6%94%B9%E5%96%84%E6%B7%B1%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E8%AF%95%E3%80%81%E6%AD%A3%E5%88%99%E5%8C%96%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96.html</url>
+    <content type="text"><![CDATA[第一周 深度学习的实用层面训练、验证、测试集 在小数时代，比例一般为6：2：2，大数据时代可适当调整，验证及测试集为10000左右即可。 train set 最好和后两者有相当的分布，比如猫的问题，在网上爬的猫有许多精良的照片，而用户实际上传的可能比较糙。 test set是为了拿到测试的无偏估计 ML是一个高度迭代的过程，即使最牛的专家也是如此。 偏差与方差 偏差代表训练集的错误率有多高，方差代表dev set 和train set的错误率的差别 正则化regularizer，规则化，通过先验的知识来最大化贝叶斯最大后验估计，本质上是贝叶斯最大后验估计的似然函数 L1 L2：Frobenius Norm，直观上Lambda越大，权重矩阵被设为零 dropout 其它减少过拟合的方法 Data augmentation early stop: 此种方法相对L2来说减少lambda的尝试计算量 正则化输入（normalize)使用零均值，主要是用来提升速度，范围尺度类似即可，也不是一定要0-1。如下图，若不同特征相差尺度很大，则会形成如左不规则超球体，这样w的迭代次数会大大增加，对应的迭代步长也应设置偏小。 梯度消失及爆炸由于层数太多，梯度指数级变化，这容易导致步长会非常小，训练时间会变得很长。传统激活函数都存在这一缺点，正向时爆炸，反向时消失，为防止上述问题，权重的初始值的选择有： 若用RELU作为激活函数（种类及特点), $w$ 初始值可以使用 $np.sqrt(\frac{2}{n^{[l-1]}+n^{[l]}})$第二周 优化算法 Min-batch梯度下降：避免需要处理所有数据才能进行下一步 指数加权平均 动量（Momentum）梯度下降:类似移动平均线减缓摆动v_{dw} = \beta v_{dw} + (1-\beta)dwv_{db}=\beta v_{db} + (1-\beta)dbw=w-\alpha v_{dw}b=b-\alpha v_{db} RMSprop：让幅度大的参数变缓，让幅度小的参数变大 S_{dw} = \beta S_{dw} + (1-\beta){dw}^2S_{db}=\beta S_{db} + (1-\beta){db}^2w=w-\alpha \frac{dw}{\sqrt{S_{dw}}}b=b-\alpha \frac{db}{\sqrt{S_{db}}} Adam(Adaptive Moment Estimation): 各算法适应于不同的神经网络结构，该算法结合Momentum and RMSprop，非常常用。 公式v_{dw} = \beta v_{dw} + (1-\beta_1)dwv_{db}=\beta v_{db} + (1-\beta_1)dbS_{dw} = \beta S_{dw} + (1-\beta_2){dw}^2S_{db}=\beta S_{db} + (1-\beta_2){db}^2w=w-\alpha \frac{v_{dw}}{\sqrt{S_{dw}}}b=b-\alpha \frac{v_{db}}{\sqrt{S_{db}}} 超参数一般值： $\alpha$ : needs to be tune $\beta_1$ : (first momentum):0.9 $\beta_2$ : (second momnetum:RMSprop):0.99 学习率衰减：多个方法，如倒数、指数等等 关于局部最优：在大量参数情况下可能会出现saddle问题，这样问题容易到达plateau状态，较难走出。这种可能性较小，通常使用Adam之类的优化方法解决 第三周 超参数调度、Batch正则与程序框架超参数调整 首先是红色的 $\alpha$，再者是黄色的学习率，第一、二动量及min-batch，最后再考虑调整层数及学习率延时 $\varepsilon$。 使用随机数、从粗到细 使用合适的分布尺寸，而不是使用均匀分布，比如对于 $\alpha$可以使用a log scala，举例而言：12r = -4*np.random.rand()alpha = 10^r 实践经验：两个流派 使用各领域的常见参数（这意味需要对各个智能领域有的了解） 直觉很有效，定期更新参数，比如几个月 babysitting（pandan）: 长期照看，评估调整——（不断的持久化模型吗？，一直迭代下去，还是每次都重新训练，模型可以以直训练下去吗？） train in paraller: Caviar(鱼子酱) 网络内激活函数的normalizaion请注意以下三点： 通过 $\alpha、\beta$两个超参数，可以控制 $Z^i$ 的范围，如右上图所示 单层网络中我们通过normalizaion来加快梯度下降的速度，那么也可以通过控制隐藏层的输入值来控制 andrew的推荐: Normalize $z$ rather than $a$ 将Batch Norm拟合进神经网络 偏执项b从此被标准化抵消，即式子可简化为 $z^l=w^l a^{l-1}$ Batch Norm奏效的原因 加速梯度下降 It makes weights, later or deeper than your network, more robost to changes to weights in earlier layers of neural netowork. 举例而言，对于不带颜色的猫可能训练得很好，当带上颜色后，对于同样判断是否为猫的模型而言，输入数据的分布变化了，导致模型需要重新训练。这也称为covariate shift，为解决这个问题，可以使用Batch Norm。 顺便的作用，如dropout，引入了噪声，相当于加入了regularization. 测试模型时BatchNorm的计算 需要估算平均值及标准差 简单靠谱的处理方式是用指数加权平均去估算 跑全量数据batchnorm也可以 Softmax分类逻辑回归的一般形式,对比hard max而言，比如分类结果值为 $[1,0,0,0]$ 而非 $[0.8,0.2,0,0]$ 理解及训练Softmax分类器同逻辑回归的二分类器的损失函数，这里同样使用最大似然的思想来定义损失函数，使用常见最优化方法——梯度下降法来求解模型参数 $w,b$。 深度学习框架 易用性能 长时间的开源，真正的开放，而不是一段时间后转为自已的服务，停止开源。 其它当然也取决于语言、用途（视觉、NLP或者广告） Tensflow 它核心在于计算损失函数并自动求导，它重载了普通的运算，所以以下是等价的： 它通过简单几句初始化建立计算图，通过placeholder喂以数据，通过自动求导计算最优cost Python 使用with可自动清理类的显式资源，tensoflow通过tf.variable来定义求取的变量 总而言之，它的框架是计算图，核心是损失函数及对应的求解方法，辅以定义自变量、喂养数据的手段，最后运行该图]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>公开课</tag>
+        <tag>深度学习</tag>
+        <tag>Andrew NG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[神经网络与深度学习]]></title>
+    <url>%2F%2Fblog%2F%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0.html</url>
+    <content type="text"><![CDATA[第一、二周：概论与基础 sigmoid在逻辑回归里为什么没用被ReLU替代 sigmoid在感知器结果输出里可以将任意输入连接的映射到 $[0,1]$ 之间，且结果保持连续 ReLu作为深度学习引入的激活函数，特性在于稀疏的激活性、单侧抑制与相对宽的兴奋边界 LR中损失函数不用平方误差，为什么它是非凸的。 因为加入了非线性的Sigmoid函数(注意，若是纯线性的，使用最小二乘可直接估计 $w$)，它使得平方误差损失函数是非凸的，而以下损失函数定义（极大似然的思想）没有这个问题，而且它易于求导的特点决定了使用梯度下降来求极值更方便[在无约束优化问题中，对目标函数直接微分的方法一般难以求解，故常用迭代的方法]：da/dz = z(1-z), dL/dz= a - y \\ \mbox{if } L=-( y log a + (1-y)log(1-a) ) 矩阵运算Numpy的高效 避免矩阵运算使用For循环，100m时差300倍效率，因为 numpy使用到了CPU\GPU的SIMD指令，运行速度更快。同时，对于numpy有内置的函数也一样，尽量使用，如log,max etc.. 在python中，z= np.dot(w.T, x) + b , b会自动扩展成一个n维向量，这在python称为broadcast 在使用的过程中，reshape是o(1)操作，多多益善，尽量不使用rank为1的数组。 第三周 浅层神经网络 二级神经网络，即只有一个隐藏层的神经网络。 输出层通常使用sigmoid函数，而隐藏层不用，一般至少使用tanh来代替，因为它的输出介于-1与1之间，这样均值为0，便于下一层的计算。考虑到梯度下降，sigmoid与tanh在最大小值处导数变化小，reLU及leaky reLU更常用。当然这一切根据实际情况调整。 隐藏层不应使用线性激活函数，若用则相当于没有隐藏层，输出层若要出回归值，则可使用。 随机w,并乘以较小的系数，一般让随机参数比较小。 第四周 深层神经网络 hyper parameter——控制参数的参数 层数 迭代次数 下降速率 激活函数的选择 batch size parameter 权重 $w$ 偏移量 $b$]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>公开课</tag>
+        <tag>深度学习</tag>
+        <tag>Andrew NG</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[action in machine learning]]></title>
+    <url>%2F%2Fblog%2Faction-in-machine-learning.html</url>
+    <content type="text"><![CDATA[树回归 连续型数值的混乱度：总平方误差来表示，即方差*m 离散型的标称的混乱度可以用香农熵表示 若叶节使用的模型是分段常数则称为回归树，若叶节点使用的模型是线性回归方程则称为模型树 使用CART构建出的树倾向于过拟合，分别使用预剪枝和后剪枝解决这个问题。预剪枝设置停止条件来调整拟合问题，这需要不断调整，见P168。而后剪枝首先构造足够复杂的树，然后使用测试集来判断叶节点合并能否降低误差 决策树通过迭代实现分类，离散情况下，叶节点的类别即预测的类别，连续情况下，若是回归树则是该子树叶子节点的平均值，若是模型树，则是该（线性）模型的值 Random Forest/GBDT参考介绍一：二分类参考介绍一:多分类 随机建立树的方式，随机采样包括行采样（样本），列采样（特征） 即本质是每颗树是窄领域内的专家，众专家一起投票 预测数值型数据:回归线性回归 使用最小二乘法，得$若X非奇异，则有w=(X^tX)^{-1}X^ty$ 局部加权线性回归（Local Weighted Leaner Regression） 线性回归的问题是容易欠拟合，因此引入局部加权 \hat{w}=(X^twX)^{-1}X^twy 通常使用高斯核用来赋于权重$w(i,i)=e^{\frac {x^{(i)}-x}{-2k^2}}$，即有离预测点越近的点权重越大，同时参数K控制了参与运算的数据，这样就有如下图: 此方法缺点在于计算量增加，每次预测必须在全集上运行，好处在于可以控制拟合程度 缩减系数——用于更好的理解数据并处理特征比样本多的问题 对于$X^TX$为奇异矩阵，在$X^TX$基础加上 $\lambda I$使得矩阵非奇异，这种方法称为岭回归。此方法有三个用途： 用于处理特征比样本多的情况 用于在估计中加入偏差，从而得到更好的估计 通过引入 $\lambda$ 来限制 $w$ 之和，通过引入惩罚，能够减少不重要的参数，这类技术在统计学称为衰减。（迹不变） 此公式$$等价于最小二乘加入约束 附加篇：各类方法的一个归纳 树模型：DT, GBDT, RF 概率模型：Bayes 最优化：LR, SVM LR：简单实用，互联网CTR预估被广泛使用 SVM：简单、多分类问题比SVM好，不好解释； 距离划分，判别模型 KNN：简单、多分类问题比SVM好，不好解释； 集成方法：Adaboost 方法比较 NB与LR 相同点：都是特征的线性表述，解释性对较好； 不同点：NB要求严格独立，NB有利于并行化，但随着数据量和维度增多，LR更合适 可持久化的模型：决策树 决策树|随机森林|adaboost|GBDT 决策树模型组合之（在线）随机森林与GBDT Bagging（Bootstrap aggregating）、随机森林（random forests）、AdaBoost 决策树ID3、C4.5、C5.0以及CART算法之间的比较-并用scikit-learn决策树拟合Iris数据集 ID3缺点: 对于多值的属性非常之敏感 无法处理连续值 容易产生过拟合，即训练数据训练太彻底，但大一点数据集错误率上升，关注了些局部信息 C4.5—-C5.0 解决上述1、2的问题，核心思想是加入了增益率 CART 能预测出值（回归），同时能全用训练和交叉验证不断评估，修剪决策树 K-nearest 思路：基于现有已知标签的样本数据集，寻找被预测样本的最近的K个样本，返回K个里频率最多的那个标签。 优点：最简单有效的分类、对异常值不敏感 缺点：解释性差、类别评分无规格化，不平衡问题 适应：brute force\kd_tree\balltree的选择 PCA与SVDhttp://blog.csdn.net/jacke121/article/details/59057192pca是单方向上的降维，SVD是两个方向上的降维。SVD表示是$A=U\Sigma V^T$，其中U,V是正交的。若要降维：使用这个公式，其具体数学推导，暂不明。现实含义可以这样理解：在SVD的三个矩阵（假设叫1，2，3）中，1-2表示用户降维转换，2-3表示物品降维转换，在用户推荐那个场景，由于是使用基于物品的推荐，要计算两物品的相似度，则可理解为只需要用户角度降维，即1-2的转换。即有 U_k \Sigma V=> A^T U_k \Sigma推导点：如如此在用户上降维，那是否可以直接通过PCA在用户角度降维？ 关联分析支持度，可信度 Apriori 附加篇一 张同学的问题：SVM中，如下代码中权重 $w$ 为何不能做特征的权重值。 123456789101112def calcWs(alphas, dataArr, classLabels): """ 输入：alphas, 数据集, 类别标签 输出：目标w """ X = mat(dataArr) labelMat = mat(classLabels).transpose() m, n = shape(X) w = zeros((n, 1)) for i in range(m): w += multiply(alphas[i] * labelMat[i], X[i, :].T) return w 对比线性情况而言,有 $w= \Sigma \alpha y_i x_i$ ，书中有下代码1w += multiply(alphas[i] * labelMat[i], X[i, :].T) 目标函数为：$y=(\Sigma \alpha y_i x_i) x + b$ 而对于映射核空间的情况，书中有描述此时目标函数则为 $y=\Sigma \alpha y_i k(\phi(x_i),\phi(x_j))+b$。显然，特征向量 $w$ 是无法拆出来的。 对weights = weights + alpha dataMatrix.transpose() error 这一行的理解 角度一：http://blog.csdn.net/lu597203933/article/details/38468303 AndrewNg 角度二：矩阵微分的角度理解 http://blog.csdn.net/aichipmunk/article/details/9382503 附加篇二：机器学习算法路径图]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>经典著作</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Computer System, A Programmer's Perspective]]></title>
+    <url>%2F%2Fblog%2FComputer-System-A-Programmer-s-Perspective.html</url>
+    <content type="text"><![CDATA[导言 信息就是位+上下文，如文本文件、二进制文件； 程序：文本——预处理器——编译器——汇编器——链接器——可执行文件 从JAVA的角度上看，JAVACODE在JVM上亦符合上述过程。JVM这个代码级机器可参考百度百科，包括对JVM指令系统、寄存器、栈结构及子系统（GC、类加载器）等 基本上，一个线程启动后分配一个栈（-XSSS），保存局部变量、操作数、指向常量池的引用及返回地址，这些称为一个桢，进入新方法后，再压入一个帧；同时分配一个私有PC寄存器用于任何分支，循环，方法调用，判断，异常处理，线程等待以及恢复线程，递归等等； 所有的线程共享方法区（PERM)及堆]]></content>
+      <categories>
+        <category>深耕码农</category>
+      </categories>
+      <tags>
+        <tag>系统结构</tag>
+        <tag>经典著作</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[集体智慧编程]]></title>
+    <url>%2F%2Fblog%2F%E9%9B%86%E4%BD%93%E6%99%BA%E6%85%A7%E7%BC%96%E7%A8%8B.html</url>
+    <content type="text"><![CDATA[推荐 对于每人都持有的项，使用权重稀释 itemCF，通常我们需要在用户基数和评分数量不是很大的时候去计算，随着用户的增长，物品之间的相似度评价会越来越稳定 文本聚类，注意过滤太常用的the ，可以定一个上下界【10%，50%】聚类 分层聚类，优点在于直观，不用指定聚类数，缺点计算量惊人搜索 流程：爬虫——设计SCHEMA——索引——查询——评分排名（单词频度 、文档位置、单词距离）—— 评分 普通指标：单词频度 、文档位置、单词距离 利用外部回指-简单计数* pagerank]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>经典著作</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Thinking in Java]]></title>
+    <url>%2F%2Fblog%2FThinking-in-Java.html</url>
+    <content type="text"><![CDATA[一、导论 对象都有一个接口 private, protected, public和无限定词——包访问权限 组合与继承（覆盖方法、添加新方法） 多态 C++用Virtual表示，JAVA内部用一小段特殊代码表示，默认方法皆如此，自动进行upcasting 单根继承——Object 首先便于基本操作，heap new 其次GC 范型 异常 WEB发展，前端JS APLLET 跨平台 后端 servlet JSP 跨平台消除异构浏览器的复杂性 二、一切为对象 引用 对象存储（寄存器、堆栈、堆、常量、持久化存储） 特例：基本类型 基本数据类型的作用域及对象的自动GC 类，成员默认值，局部变量依然是随机值，强制初始化 命名空间(com.apaceh.)，import，static 静态变量提供与对象无关的存储空间分配； 静态方法提供，直接调用 的方法，如main JAVADOC，帮你自动生成JAVA API文档 编码风格：驼峰 三四、操作符、控制流 引用，包括赋值、传递 一元加减操作符 逻辑运算符的短路现象：（）&amp;&amp;（）&amp;&amp;（），最短前两个即能判断该表达式 指数计数 、移位（注意-1的表示 方法）、三元操作符 e作为10的幂次 字符串操作符+、+=，定义若表达式以一个字符串开头，后续所有操作数都必须是字符串，要不然强制转 round() 没有sizeof for中的逗号操作符，foreach 五、初始化与清理 构造、重载（参数、顺序皆可，返回值不可，对于基本类型，传递参数可上升不可下降，因此要人工强制窄化） this返回本对象 finalize，非析构，在GC时调用，可以认为是验证对象的终结，在调用NATIVE CODE时尤其有用 GC 六、继承 类的加载：找到类文件，加载基类，加载主类，静态初始化、创建对象，成员初始化（基础类型为默认值，对象引用置空），构造器 final成员、参数 、方法与类 七、多态（OO三种基本特征，抽象、继承、多态） 原理：upcasting,自动后期binding，除非final20170709 只有普通方法的调用可以是多态的，如私有方法、域及静态方法 若要编码一个基础类，除非必需使用方法和成员，那么第一选择应该是使用接口； 基类——抽象方法——抽象类——接口，由具体到抽象，若一个基类是纯抽象的，而未告诉编译器它是抽象的或是个接口，那么，可能会因为误重载（本来是覆盖，因为参数不同，导致动态绑定失效）的原因，调用基类中的“伪”方法，造成非预知的问题。 接口：类默认为public，成员默认为staic和final ，可多重继承， 适配接口，策略设计模式被适配的类 继承和实现基策略 任何类都可以通过为多重继承的方式被适配 接口中的任何域都是static和final的 接口可以嵌套，在类中或接口中 ，在类中private只能交给有权使用它的对象，即使他被一个public接口给实现；而嵌套在接口中则必须是public。 工厂模式，较通用，一般用于框架，代码可复用 十、内部类十一、异常 finally 在此处有用，处理异常下清理 ，但注意在构造方法中，不适合使用，而适在catch中处理 注意exception有丢失的可能可能性，比如被下一个exception覆盖（即catch内层有几层异常发生），又比如被finnally return . 异常匹配就近原则 异常及类型检查是必要的，但可以编译器和运行发生，只要它存在。反射及范型也是JAVA为编译期过多的检查所作的补偿。 十二、字符串 string + 性能不如stringbuilder 使用javap可反编译分析，且JAVA5前是stringbuffer,而stringbuffer是线程安全的，效率不高。 toString 可能会造成无穷递归调用 tostring, 如 tostring { return ‘a’ + this ;},防止的方法是调用super.this system.out.printf/formatter 及formatter类、string.format() 用于格式化修饰%[argument_index$][flags][width][.precision]conversion， flags用于对齐， 如%05x, 右对齐，不足5位用0补齐 string.match()/split()/replace()/replaceall()十四：RTTI RTTI及反射使得运行时识别对象和类信息，而对象实际执行什么代码，这是有它指向的引用决定的，即多态机制。 通常希望大部分代码尽可能少了解对象具体类型，而只与对象家族的一个通用表示打交道。因此，多态是OOP的基本目标。十五：范型 范型方法的 类型参数推断 ，基本类型的自动打包机制。类型参数推断的局限性在于只对赋值有效，这种局限可以通过显式的类型说明来弥补 范型方法可与可变参数配合十六、数组 相对容器高效，但功能更少 初始化，对象为null，基本类型 char \0000 即转整型后为0 有个取不重复随机数的方法：123dot = rand.nextInt(len);while(picked[i]);]]></content>
+      <categories>
+        <category>深耕码农</category>
+      </categories>
+      <tags>
+        <tag>经典著作</tag>
+        <tag>计算机语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Neural Networks for Machine Learning]]></title>
+    <url>%2F%2Fblog%2FNeural-Networks-for-Machine-Learning.html</url>
+    <content type="text"><![CDATA[机器学习：不必为特定任务编写程序场景落地 Recognizing pattern Objects facial Spoken word Recognizing anomalies credit card transaction Sensor reality Prediction stock price, exchange rate movie like 几种简单模型 Linear neurons$ y=b+\sum x_iw_i $ Binary threshold neurons z=\Sigma x_i w_i \quad y=\begin{cases} 1&if\;z \gt 0\\ 0&otherwise \end{cases} \quad or \qquad \theta=-b \quad z=b+\Sigma x_i y_i \quad y=\begin{cases} 1&if\;z \gt \theta\\ 0&otherwise \end{cases} Rectified Linear Neurons 2z=\Sigma x_i w_i, y= \begin{cases} z, &if\;z \gt 0 \\ 0, &\mbox{otherwise} \end{cases} sigmoid neuronsz=b+\Sigma x_i w_i \quad y=\frac {1} {1+e^{-z}} Stochastic binary neuronsz=b+\Sigma x_i w_i \quad p(s=1)=\frac {1} {1+e^{-z}} 学习的类型 supervised learning Regression model class: $y=f(x;w)$ 1/2这个系数在求导时被抵消 classification reinforced learning the output is an action or sequence of actions and the only supervisory is an occasional scalar reward.This is difficult, The rewads are typically delayed so its had to know where we went wrong( or right) unsupervised learning 神经网络的类型 Feed-Forward neural network if there is more than one hidden layer, we call them “deep” neural networks. Recurrent network It is hard to train but natural way for modeling sequence, recent algorithm can be able to do this, this also can be used to predict stock price. 20171218 LSTM 现在貌似更流行 Symmetrically connected networks 感知器 how to learn biases using the same rule as we use for learning weights 学习的过程：if the output unit is correct, leave its weights alone, if the output unit incorrectly output 错误的输出了零，则Z需要新增以致其逐渐大于零而产生y=1（往正面），反之则需要减 ？？此偏移向量为负如何解释，或者必须保证 该向量是指向正确的分类超平面的（perpendicular，正交）。 $(w,b) \leftarrow (w,b)-(x,1)$$(w,b) \leftarrow (w,b)+(x,1)$ just like penalty function 为什么学习有效: 非正式的收敛证明 Each time the perceptron makes a mistake, the current weight vector moves to decrease its squared distance from every weight vector in the “generously feasible” region. The squared distance decreases by at least the squared length of the input vector. （向量的运算，几何解释） So after a finite number of mistakes, the weight vector must lie in the feasible region if the region exist. 感知器的缺陷 right feature Once the hand-coded features have been determined, there are very strong limitations on what a perceptron can learn. The main question is : This type of table look-up won’t generalize, it need too many feature 此篇习题未理解 Group Invariance Theorem—-Minsky and Papert can’t learn to do this if the transformations from a group{欧氏变换之内}，so it needs to use multiple feature unit to recognize transformations of informative sub-patterns.So,more important was all about how you learn feature detectors, that’s hidden units. After 20 years, We know,we need multiple layer of adaptive, non-linear hidden units.]]></content>
+      <categories>
+        <category>AI梦</category>
+      </categories>
+      <tags>
+        <tag>神经网络</tag>
+        <tag>Geoffrey hinton</tag>
+        <tag>公开课</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[draft]]></title>
+    <url>%2F%2Fblog%2Fdraft.html</url>
+    <content type="text"><![CDATA[LSTM 此篇文章对LSTM单元讲的比较 细，主要是两张图，几个公式 常见变种一：Gers &amp; Schmidhuber在2000年提出。这种方法增加了“peephole connections”，即每个门都可以“窥探”到单元状态。这里，遗忘门和输入门是与上一单元状态建立连接，而输出门是与当前单元状态建立连接。 常见变种二:将新信息加入的多少与旧状态保留的多少设为互补的两个值（和为1），即：只有当需要加入新信息时，我们才会去遗忘；只有当需要遗忘时，我们才会加入新信息。 常见变种三：Gated Recurrent Unit（GRU），最早由Cho, et al.在2014年提出。这种方法将遗忘门和输入门连入了一个“更新门”（update gate），同时也合并了隐藏状态ht和单元状态Ct，最终的结果比标准LSTM简单一些。 LSTM变种很多，结果显示这些变种表现差不多，具体参见Greff, et al. (2015)及Jozefowicz, et al. (2015) 来自MIT的Edwin Chen的一篇很有意思的解释 增强学习 四个要素 $(A,S,R,P)$ 策略 $\pi$ 决定选择哪个行动 $a$, 即： \begin{cases} \pi(s) \implies a \\ \pi(a|s) \end{cases} 根据要素抽象行为成序列，通常要满足马尔可夫条件,这些序列构成训练模型样本\{s_1,a_1,r_1,s_2,a_2,r_2,...,s_t,a_t,r_t\} 定义目标 $Gt$，作为长期回报，其值用收益折现来表达，有 $G_t=\sum{k=0}^N\gamma^kr_{k+t}$, 因此可推导目标期望： V_\pi(s)=E_\pi(G_t|S_t=s) \\ Q_\pi(s,a)=E_\pi(G_t|S_t=s,A_t=a) Bellman等式，也称动态规划等式，在RL里非常重要，其在此场景下用来表示长期回报——值函数： \mbox{ 在某策略下：}V_\pi(s)=\sum\pi(a|s)E[R_{t+1}+\gamma V(s_{t+1})|S_t=s] \\ V_*(s)=E[R_{t+1}+\gamma max_\pi V(s_{t+1})|S_t=s] \\ Q_*(s,a)=E[R_{t+1}+\gamma max_{a^\prime} Q(s_{t+1},a^\prime)|S_t=s,A_t=a] 有了值函数 $V\pi$的概念后,则问题抽象为在马尔可夫决策过程中，任意初始条件 $s$下，求能够最大化值函数的策略 $\pi$，其可表达为 $\pi^*=arg\pi {maxV_\pi(s)}$，具体求解过程可参看计算实例]]></content>
+      <tags>
+        <tag>draft</tag>
+      </tags>
+  </entry>
+</search>
